@@ -8,10 +8,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DisabledCommand;
-import frc.robot.utility.ComplexWidgetBuilder;
-import frc.robot.utility.SafeCanSparkMax;
-import frc.robot.utility.ShuffleboardValue;
-import frc.robot.utility.SafeMotor.IdleMode;
+import frc.robot.utility.motor.SafeCanSparkMax;
+import frc.robot.utility.motor.SafeMotor.IdleMode;
+import frc.robot.utility.shuffleboard.ComplexWidgetBuilder;
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class VerticalElevator extends SubsystemBase {
     public static class Constants {

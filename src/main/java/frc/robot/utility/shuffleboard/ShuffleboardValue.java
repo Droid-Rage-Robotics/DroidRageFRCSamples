@@ -1,4 +1,4 @@
-package frc.robot.utility;
+package frc.robot.utility.shuffleboard;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

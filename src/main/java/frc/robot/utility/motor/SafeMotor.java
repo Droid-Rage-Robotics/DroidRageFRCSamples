@@ -1,5 +1,6 @@
-package frc.robot.utility;
+package frc.robot.utility.motor;
 
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public abstract class SafeMotor {
     protected final ShuffleboardValue<Boolean> isEnabled;

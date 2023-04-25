@@ -1,10 +1,11 @@
-package frc.robot.utility;
+package frc.robot.utility.motor;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import edu.wpi.first.wpilibj.RobotController;
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class SafeTalonFX extends SafeMotor{
     private final TalonFX motor;

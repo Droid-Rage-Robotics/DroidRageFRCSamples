@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utility.SafeTalonFX;
-import frc.robot.utility.ShuffleboardValue;
-import frc.robot.utility.SafeMotor.IdleMode;
+import frc.robot.utility.motor.SafeTalonFX;
+import frc.robot.utility.motor.SafeMotor.IdleMode;
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class SetPowerTalonFX extends SubsystemBase {
     

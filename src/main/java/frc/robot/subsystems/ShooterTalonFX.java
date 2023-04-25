@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DisabledCommand;
-import frc.robot.utility.ComplexWidgetBuilder;
-import frc.robot.utility.SafeTalonFX;
-import frc.robot.utility.ShuffleboardValue;
-import frc.robot.utility.ShuffleboardValueEnum;
-import frc.robot.utility.SafeMotor.IdleMode;
+import frc.robot.utility.motor.SafeTalonFX;
+import frc.robot.utility.motor.SafeMotor.IdleMode;
+import frc.robot.utility.shuffleboard.ComplexWidgetBuilder;
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
+import frc.robot.utility.shuffleboard.ShuffleboardValueEnum;
 
 public class ShooterTalonFX extends SubsystemBase {
     public enum Velocity implements ShuffleboardValueEnum<Double> {

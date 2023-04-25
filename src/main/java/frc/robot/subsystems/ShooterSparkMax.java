@@ -7,8 +7,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utility.SafeCanSparkMax;
-import frc.robot.utility.ShuffleboardValue;
+import frc.robot.utility.motor.SafeCanSparkMax;
+import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 //Keep in mind this doesn't implement Feedforward
 public class ShooterSparkMax extends SubsystemBase {
