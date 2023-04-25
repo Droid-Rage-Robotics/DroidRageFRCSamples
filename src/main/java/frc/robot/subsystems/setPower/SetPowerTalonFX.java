@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.setPower;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utility.motor.SafeTalonFX;

@@ -3,7 +3,7 @@ package frc.robot.commands.manual;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DroidRageConstants;
-import frc.robot.subsystems.SetPowerTalonFX;
+import frc.robot.subsystems.setPower.SetPowerTalonFX;
 public class ManualTalonFXSetPower extends CommandBase {
     private final SetPowerTalonFX setPowerTalonFX;
     private final Supplier<Double> setPowerMove;

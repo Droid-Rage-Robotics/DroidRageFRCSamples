@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.setPower;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 

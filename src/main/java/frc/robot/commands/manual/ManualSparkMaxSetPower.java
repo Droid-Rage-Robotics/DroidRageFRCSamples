@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DroidRageConstants;
-import frc.robot.subsystems.SetPowerSparkMax;
+import frc.robot.subsystems.setPower.SetPowerSparkMax;
 public class ManualSparkMaxSetPower extends CommandBase {
     private final SetPowerSparkMax setPowerSparkMax;
     private final Supplier<Double> setPowerMove;
