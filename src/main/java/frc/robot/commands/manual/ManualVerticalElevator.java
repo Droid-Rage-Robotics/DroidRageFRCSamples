@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DroidRageConstants;
-import frc.robot.subsystems.VerticalElevator;
+import frc.robot.subsystems.elevator.VerticalElevator;
 public class ManualVerticalElevator extends CommandBase {
     private final VerticalElevator verticalElevator;
     private final Supplier<Double> verticalElevatorMove;

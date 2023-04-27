@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.elevator;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -6,14 +6,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.DisabledCommand;
 import frc.robot.utility.motor.SafeCanSparkMax;
 import frc.robot.utility.motor.SafeMotor.IdleMode;
 import frc.robot.utility.shuffleboard.ComplexWidgetBuilder;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
-public class VerticalElevator extends SubsystemBase {
+public class VerticalElevator extends Elevator {
     public static class Constants {
         public static final double GEAR_RATIO = 1 / 1;
         public static final double GEAR_DIAMETER_INCHES = 1.88;
@@ -24,22 +23,24 @@ public class VerticalElevator extends SubsystemBase {
     }
     private final PIDController controller = new PIDController(2.4, 0, 0);
     private final ElevatorFeedforward feedforward = new ElevatorFeedforward(0.1, 0.2, 0, 0);
+    // private final ShuffleboardValue<Boolean> isEnabledLeft = ShuffleboardValue.create(true, "Is Enabled Left", VerticalElevator.class.getSimpleName())
+    //     .withWidget(BuiltInWidgets.kToggleSwitch)
+    //     .build();
+    // private final ShuffleboardValue<Boolean> isEnabledRight = ShuffleboardValue.create(false, "Is Enabled R", VerticalElevator.class.getSimpleName())
+    //     .withWidget(BuiltInWidgets.kToggleSwitch)
+    //     .build();
     private final ShuffleboardValue<Double> voltage = ShuffleboardValue.create(0.0, "Voltage", VerticalElevator.class.getSimpleName())
         .build();
 
     private final SafeCanSparkMax leftMotor;
-
     private final SafeCanSparkMax rightMotor;
 
-    protected final ShuffleboardValue<Double> encoderPositionWriter = 
-        ShuffleboardValue.create(0.0, "Encoder Position", VerticalElevator.class.getSimpleName())
-            .withSize(1, 3)
-            .build();
+    protected final ShuffleboardValue<Double> encoderPositionWriter = ShuffleboardValue.create(0.0, "Encoder Position", VerticalElevator.class.getSimpleName())
+        .withSize(1, 3)
+        .build();
 
-    protected final ShuffleboardValue<Boolean> isMovingManually = 
-        ShuffleboardValue.create(false, "Moving manually", VerticalElevator.class.getSimpleName())
-            .withSize(1, 2)
-            .build();
+    protected final ShuffleboardValue<Boolean> isMovingManually = ShuffleboardValue.create(false, "Moving manually", VerticalElevator.class.getSimpleName())
+        .build();
 
     private final RelativeEncoder encoder;
 
@@ -66,9 +67,12 @@ public class VerticalElevator extends SubsystemBase {
         leftMotor.setInverted(false);
         rightMotor.follow(leftMotor, true);
         
+        // rightMotor.setInverted(true);
+
         controller.setTolerance(0.1);
 
         encoder = leftMotor.getEncoder();
+        // encoder = rightMotor.getEncoder();
         encoder.setPositionConversionFactor(Constants.ROT_TO_INCHES);
 
         ComplexWidgetBuilder.create(getController(), " PID Controller", VerticalElevator.class.getSimpleName())
@@ -78,60 +82,46 @@ public class VerticalElevator extends SubsystemBase {
         ComplexWidgetBuilder.create(DisabledCommand.create(runOnce(this::resetEncoder)), "Reset Encoder", VerticalElevator.class.getSimpleName());
     }
 
-    
+    @Override
     protected PIDController getController() {
         return controller;
     }
 
-    
+    @Override
     protected ElevatorFeedforward getFeedforward() {
         return feedforward;
     }
 
-    
+    @Override
     protected void setVoltage(double voltage) {
         leftMotor.setVoltage(voltage);
         // rightMotor.setVoltage(voltage);
     }
 
-    
+    @Override
     protected ShuffleboardValue<Boolean> getIsMovingManually() {
         return isMovingManually;
     }
 
-    
+    @Override
     public double getMaxPosition() {
         return Constants.MAX_POSITION;
     }
 
-    
+    @Override
     public double getMinPosition() {
         return Constants.MIN_POSITION;
     }
 
-    
+    @Override
     public void resetEncoder() {
         encoder.setPosition(0);
     }
 
-    
+    @Override
     public double getEncoderPosition() {
         double position = encoder.getPosition();
         encoderPositionWriter.write(position);
         return position;
-    }
-
-    public void setMovingManually(boolean value) {
-        getIsMovingManually().set(value);
-    }
-
-    public double getTargetPosition() {
-        return getController().getSetpoint();
-    }
-
-    public void setTargetPosition(double positionRadians) {
-        if (positionRadians < getMinPosition()) return;
-        if (positionRadians > getMaxPosition()) return;
-        getController().setSetpoint(positionRadians);
     }
 }
