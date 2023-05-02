@@ -1,0 +1,11 @@
+TODO:
+
+Test Advantage Kit
+
+FRC TODO:
+Advantage Kit - Logging
+Extension automaticcaly commit any code when pushing code to bot (added it) - need to see if it works
+BatteryTracker with QR code (may want to make own or use Mechanical Advantage one
+CycleTracker - Track based on when you outtake: https://github.com/3015RangerRobotics/2023Public/blob/main/RobotCode2023/src/main/java/frc/lib/util/CycleTracker.java#L6
+
+SubsystemCheck Command
