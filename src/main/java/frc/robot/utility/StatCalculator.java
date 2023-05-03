@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class StatCalculator {
   private final List<Double> numbers;

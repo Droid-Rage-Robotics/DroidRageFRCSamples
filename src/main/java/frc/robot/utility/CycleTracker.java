@@ -1,7 +1,6 @@
 package frc.robot.utility;
 
 import java.io.File;
-import java.sql.Driver;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -44,7 +43,7 @@ public class CycleTracker {
         timer.start();
     }
     
-    public static void trackCycle(){
+    public static void trackCycle(int num){
         double cycleTime = timer.get();
         stat.addNumber(cycleTime);
         cycle.set(stat.getSizeDouble());
@@ -56,7 +55,12 @@ public class CycleTracker {
         //         high.set(high.get()+1);
         //     case LOW:
         //         low.set(low.get()+1);
-        // }
+        switch (num){
+            case 1:
+                high.set(high.get()+1);
+            case 2:
+                low.set(low.get()+1);
+        }
     }
 
     public static void printOut(String string, double num){
