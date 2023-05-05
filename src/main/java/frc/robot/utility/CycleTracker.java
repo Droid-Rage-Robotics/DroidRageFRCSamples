@@ -1,6 +1,8 @@
 package frc.robot.utility;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.HashMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -11,7 +13,16 @@ public class CycleTracker {
     protected static StatCalculator stat = new StatCalculator();
     protected static Timer timer = new Timer();
     // private static int high = 0 , low = 0;
-    private File file;
+    private static File file;
+    private static final PrintStream stream;
+
+    static {
+        try {
+            stream = new PrintStream(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private static HashMap<String, Double> data;
     protected final static ShuffleboardValue<Double> cycle = 
         ShuffleboardValue.create(0.0, "Cycles:", "Misc")
@@ -64,7 +75,8 @@ public class CycleTracker {
     }
 
     public static void printOut(String string, double num){
-        data.put(string, num);
+        // data.put(string, num);
+        stream.print(string+num);
     }
     public static void printAllData(){
         printOut(DriverStation.getMatchType().toString(), DriverStation.getMatchNumber());
