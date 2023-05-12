@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
@@ -17,7 +19,8 @@ public class Light extends SubsystemBase {
                       purple = Color.kPurple,
                       yellow = Color.kOrangeRed,
                       blue = Color.kBlue, //Decoration
-                      green = Color.kGreen;
+                      green = Color.kGreen,
+                      white = Color.kWhite;
     class Rainbow{
       private int rainbowFirstPixelHue = 0;
     }
@@ -66,6 +69,32 @@ public class Light extends SubsystemBase {
         rainbow.rainbowFirstPixelHue += 3;
         // Check bounds
         rainbow.rainbowFirstPixelHue %= 180;
+    }
+    private void rainbow2() {
+      List<Color> colors = List.of(
+                                  Color.kBlack,
+                                  Color.kRed,
+                                  Color.kOrangeRed,
+                                  Color.kYellow,
+                                  Color.kGreen,
+                                  Color.kBlue,
+                                  Color.kPurple,
+                                  Color.kBlack,
+                                  new Color(0.15, 0.3, 1.0),
+                                  Color.kDeepPink,
+                                  Color.kWhite,
+                                  Color.kDeepPink,
+                                  new Color(0.15, 0.3, 1.0));
+      int length = 3;
+      double duration = 5.0;
+      
+      int offset = (int) (Timer.getFPGATimestamp() % duration / duration * length * colors.size());
+      for (int i = 0; i < LED_COUNT; i++) {
+        int colorIndex =
+            (int) (Math.floor((double) (i - offset) / length) + colors.size()) % colors.size();
+        colorIndex = colors.size() - 1 - colorIndex;
+        buffer.setLED(i, colors.get(colorIndex));
+      }
     }
 
 

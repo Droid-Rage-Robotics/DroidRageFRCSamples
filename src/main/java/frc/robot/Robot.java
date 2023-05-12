@@ -6,9 +6,11 @@ package frc.robot;
 
 import com.pathplanner.lib.server.PathPlannerServer;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Light;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private final RobotContainer robotContainer = new RobotContainer();
   private Command autonomousCommand;
+  private Light light = new Light();
   
 
   /**
@@ -80,7 +83,11 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {}
+    public void autonomousPeriodic() {
+        if(DriverStation.isEStopped()){ //Robot Estopped
+            light.flashingColors(light.red, light.white);
+        }
+    }
     
     @Override
     public void teleopInit() {
@@ -92,6 +99,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         robotContainer.teleopPeriodic();
+        if(DriverStation.isEStopped()){ //Robot Estopped
+            light.flashingColors(light.red, light.white);
+        }
     }
     
     @Override

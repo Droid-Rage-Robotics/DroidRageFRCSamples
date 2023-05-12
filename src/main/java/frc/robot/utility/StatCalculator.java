@@ -3,7 +3,7 @@ package frc.robot.utility;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+FunctionalCommand
 
 public class StatCalculator {
   private final List<Double> numbers;
