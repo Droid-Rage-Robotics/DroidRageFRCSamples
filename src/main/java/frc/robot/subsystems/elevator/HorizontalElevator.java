@@ -1,5 +1,7 @@
 package frc.robot.subsystems.elevator;
 
+import java.util.Map;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -27,6 +29,8 @@ public class HorizontalElevator extends Elevator {
 
     protected final ShuffleboardValue<Double> encoderPositionWriter = ShuffleboardValue.create(0.0, "Encoder Position", HorizontalElevator.class.getSimpleName())
         .withSize(1, 3)
+        .withWidget(BuiltInWidgets.kNumberSlider)//TODO: How does this work? And doe sit look nice?
+        .withProperties(Map.of("min", Constants.MIN_POSITION, "max", Constants.MAX_POSITION))
         .build();
 
     protected final ShuffleboardValue<Boolean> isMovingManually = ShuffleboardValue.create(false, "Moving manually", HorizontalElevator.class.getSimpleName())

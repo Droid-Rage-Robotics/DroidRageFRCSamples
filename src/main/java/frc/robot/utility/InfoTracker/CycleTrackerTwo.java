@@ -1,7 +1,7 @@
-package frc.robot.utility;
+package frc.robot.utility.InfoTracker;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.HashMap;
 
@@ -9,52 +9,45 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
-public class CycleTracker {
-    protected static StatCalculator stat = new StatCalculator();
-    protected static Timer timer = new Timer();
-    // private static int high = 0 , low = 0;
-    private static File file;
-    private static final PrintStream stream;
-
-    static {
-        try {
-            stream = new PrintStream(file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private static HashMap<String, Double> data;
-    protected final static ShuffleboardValue<Double> cycle = 
+public class CycleTrackerTwo {
+    protected StatCalculator stat = new StatCalculator();
+    protected Timer timer = new Timer();
+    // private int high = 0 , low = 0;
+    private final File file = new File("/home/lvuser/Logs");//Add in data like time of match, what type it is from DRIVER STATION
+    private final PrintStream stream = new PrintStream(file);
+/* SIngleton - {@link CommandScheduler} {@link Sendable}*/ 
+    
+    private HashMap<String, Double> data;
+    protected final ShuffleboardValue<Double> cycle = 
         ShuffleboardValue.create(0.0, "Cycles:", "Misc")
             .withSize(1, 2)
             .build();
-    protected final static ShuffleboardValue<Double> mean = 
+    protected final ShuffleboardValue<Double> mean = 
         ShuffleboardValue.create(0.0, "Mean:", "Misc")
             .withSize(1, 2)
             .build();
-    protected final static ShuffleboardValue<Double> fastest = 
+    protected final ShuffleboardValue<Double> fastest = 
         ShuffleboardValue.create(0.0, "Fastest Time:", "Misc")
             .withSize(1, 2)
             .build();
-    protected final static ShuffleboardValue<Double> slowest = 
+    protected final ShuffleboardValue<Double> slowest = 
         ShuffleboardValue.create(0.0, "Slowest Time:", "Misc")
             .withSize(1, 2)
             .build();
-    protected final static ShuffleboardValue<Double> high = 
+    protected final ShuffleboardValue<Double> high = 
         ShuffleboardValue.create(0.0, "High:", "Misc")
             .withSize(1, 2)
             .build();
-    protected final static ShuffleboardValue<Double> low = 
+    protected final  ShuffleboardValue<Double> low = 
         ShuffleboardValue.create(0.0, "Low:", "Misc")
             .withSize(1, 2)
             .build();
 
-    public CycleTracker(){
-        file = new File("/home/lvuser/Logs");//Add in data like time of match, what type it is from DRIVER STATION
+    public CycleTrackerTwo(){
         timer.start();
     }
     
-    public static void trackCycle(int num){
+    public void trackCycle(int num){
         double cycleTime = timer.get();
         stat.addNumber(cycleTime);
         cycle.set(stat.getSizeDouble());
@@ -74,11 +67,17 @@ public class CycleTracker {
         }
     }
 
-    public static void printOut(String string, double num){
+    public void printOut(String string, double num){
         // data.put(string, num);
         stream.print(string+num);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-    public static void printAllData(){
+    public void printAllData(){
         printOut(DriverStation.getMatchType().toString(), DriverStation.getMatchNumber());
 
         for (int i = 0; i < stat.getSizeInt(); i++) {

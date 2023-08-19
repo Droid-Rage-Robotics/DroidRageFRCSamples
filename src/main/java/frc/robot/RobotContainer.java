@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.utility.CycleTracker;
+import frc.robot.utility.InfoTracker.CycleTracker;
 import frc.robot.utility.shuffleboard.ComplexWidgetBuilder;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
@@ -36,6 +36,7 @@ public class RobotContainer {
     //save time on bump don't worry about free
     //Add lights to have the robot tell us any errors with can, etc.
     
+    private final CycleTracker cycleTracker = new CycleTracker();
     private final CommandXboxController driver =
         new CommandXboxController(DroidRageConstants.Gamepad.DRIVER_CONTROLLER_PORT);
     private final CommandXboxController operator =
@@ -44,10 +45,7 @@ public class RobotContainer {
     private ShuffleboardValue<Double> matchTime = ShuffleboardValue.create(0.0, "Match Time", "Misc")
         .withWidget(BuiltInWidgets.kTextView)
         .build();
-    
-
     SendableChooser<CommandBase> autoChooser = new SendableChooser<CommandBase>();
-    
     public RobotContainer() {
         ComplexWidgetBuilder.create(autoChooser, "Auto Chooser", "Misc")
             .withSize(1, 3);
@@ -80,11 +78,11 @@ public class RobotContainer {
         //     .onFalse(arm.setPositionCommand(Position.HOLD));
         driver.leftTrigger()
             
-            .onTrue(new InstantCommand(()->CycleTracker.trackCycle(1)))
+            .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)))
             ;
             driver.rightTrigger()
             
-            .onTrue(new InstantCommand(()->CycleTracker.trackCycle(1)))
+            .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)))
             ;
         
     }
