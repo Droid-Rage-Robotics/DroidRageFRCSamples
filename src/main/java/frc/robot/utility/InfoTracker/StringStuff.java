@@ -1,4 +1,4 @@
-package frc.robot.utility;
+package frc.robot.utility.InfoTracker;
 
 public abstract class StringStuff {
     public static String convert(String original) {
