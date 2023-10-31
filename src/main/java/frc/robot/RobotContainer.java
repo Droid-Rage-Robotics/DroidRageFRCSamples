@@ -76,17 +76,15 @@ public class RobotContainer {
         //     .onTrue(new DropTeleopCube(arm, intake))
         //     .onFalse(intake.run(intake::stop))
         //     .onFalse(arm.setPositionCommand(Position.HOLD));
-        driver.leftTrigger()
-            
-            .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)))
-            ;
-            driver.rightTrigger()
-            
-            .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)))
-            ;
+
+        // driver.leftTrigger()
+        //     .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)));
+        // driver.rightTrigger()
+        //     .onTrue(new InstantCommand(()->cycleTracker.trackCycle(1)));
         
     }
-
+    public void testRevMotorTeleop(){}
+    public void testTalonFXMotorTeleop(){}
     public void configureTestBindings(){}
     
     public Command getAutonomousCommand() {
