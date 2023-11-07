@@ -2,38 +2,37 @@ ToDo:
     Limelight Tracking
         Change Shooter targetVelocity
         Align Drivetrain
+        auto align-Make a button that automatically aligns to 180 degrees with a press of a button; only when held - still leave control of drive to driver except for turning
     Add subsystems
         Telescoping Arm
         Shooter Hood
         Pneumatics
     Robot Tracking on Field
-    Battery Usage TrackingTODO:
-
-Test Advantage Kit
-
-FRC TODO:
-Advantage Kit - Logging Robot Positioning
-Extension automatically commit any code when pushing code to bot (added it) - need to see if it works
-BatteryTracker with QR code (may want to make own or use Mechanical Advantage one) - Logging Battery usage
-
-MAKE INTAKE HAVE SimpleMotorFeedforward like Charged Up
-
-SubsystemCheck Command
-Add 6 Wheel
-Add Swerve Drive
-Override button for when sensors fail
-Custom shuffleboard droid rage theme
-Auto Align with Limelight
-    Make a button that automatically aligns to 180 degrees with a press of a button; only when held - still leave control of drive to driver except for turning
-Make all of the writes that are not necessary during a match be in a practice only writers (Helps prevent the likelihood of loop overruns)
-Make LEDs show Errors
-Use DutyCycleEncoder for the Through Bore Encoder to use 
-    public boolean isThroughBoreConnected() {
-        return absoluteEncoder.isConnected();
-    }
-Add Timeout for Button Triggers
+    Battery Usage Tracking
+        Logging Battery usage
+    Test Advantage Kit
+        Logging Robot Positioning
+    override button for when sensors fail
+    custom shuffleboard droid rage theme
+    ---------------------------------Field Centric Turning
+    Lights
+        Add lights to have the robot tell us any errors with can, etc; Make LEDs show Errors
+    Extension automatically commit any code when pushing code to bot (added it) - need to see if it works
+    BatteryTracker with QR code (make or use Mechanical Advantage one) - Logging Battery usage
+    SubsystemCheck Command
+    Add 6 Wheel?
+    Add Swerve Drive
+    Make all of the writes that are not necessary during a match be in a practice only writers (Helps prevent the likelihood of loop overruns)
+    Use DutyCycleEncoder for the Through Bore Encoder to use? 
+        public boolean isThroughBoreConnected() {
+            return absoluteEncoder.isConnected();
+        }
+    Add Timeout for Button Triggers?
 
 Test:
-Test CycleTracker: https://github.com/3015RangerRobotics/2023Public/blob/main/RobotCode2023/src/main/java/frc/lib/util/CycleTracker.java#L6
+- Test CycleTracker: https://github.com/3015RangerRobotics/2023Public/blob/main/RobotCode2023/src/main/java/frc/lib/util/CycleTracker.java#L6
+- Make all of the writes that are not necessary during a match be in a practice only writers (Helps prevent the likelyhood of loop overruns)
+- 
 
 Done:
+Project to Test Motors Seperately
