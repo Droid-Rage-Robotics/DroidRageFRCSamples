@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class SafeCanSparkMax extends SafeMotor {
@@ -16,14 +17,18 @@ public class SafeCanSparkMax extends SafeMotor {
 
     @Override
     public void setPower(double power) {
-        outputWriter.write(power);
+        if(!DriverStation.isFMSAttached()){
+            outputWriter.write(power);
+        }
         if (!isEnabled.get()) motor.set(0);
             else motor.set(power);
     }
 
     @Override
     public void setVoltage(double outputVolts) {
-        outputWriter.write(outputVolts);
+        if(!DriverStation.isFMSAttached()){
+            outputWriter.write(outputVolts);
+        }
         if (!isEnabled.get()) motor.set(0);
             else motor.setVoltage(outputVolts);
     }

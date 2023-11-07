@@ -5,7 +5,8 @@ import frc.robot.utility.shuffleboard.ShuffleboardValue;
 public abstract class SafeMotor {
     protected final ShuffleboardValue<Boolean> isEnabled;
     protected final ShuffleboardValue<Double> outputWriter;
-    public SafeMotor(ShuffleboardValue<Boolean> isEnabled, ShuffleboardValue<Double> outputWriter) {
+    public SafeMotor(ShuffleboardValue<Boolean> isEnabled, 
+        ShuffleboardValue<Double> outputWriter) {
         this.isEnabled = isEnabled;
         this.outputWriter = outputWriter;
     }
