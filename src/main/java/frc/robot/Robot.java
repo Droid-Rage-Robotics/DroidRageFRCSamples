@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.logging.Logger;
+
 import com.pathplanner.lib.server.PathPlannerServer;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Light;
+import frc.robot.subsystems.drive.SwerveDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,9 +22,16 @@ import frc.robot.subsystems.Light;
  * directory.
  */
 public class Robot extends TimedRobot {
-  private final RobotContainer robotContainer = new RobotContainer();
-  private Command autonomousCommand;
-  private Light light = new Light();
+    private final SwerveDrive drive = new SwerveDrive(true);
+    // private final VerticalElevator verticalElevator = new VerticalElevator(true, true);
+    // private final VerticalElevatorSetPower verticalElevatorSetPower = new VerticalElevatorSetPower();
+    // private final HorizontalElevator horizontalElevator = new HorizontalElevator(true);
+    // private final PivotAbsolute pivot = new PivotAbsolute(true);
+    // private final Intake intake = new Intake(true);
+    // private final Arm arm = new Arm(verticalElevator, horizontalElevator, pivot, intake);
+    private RobotContainer robotContainer;
+    private Command autonomousCommand;
+    private Light light = new Light( );
   
 
   /**
@@ -33,7 +43,7 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         PathPlannerServer.startServer(5811); // Use to see the Path of the robot on PathPlanner
-        // robotContainer = new RobotContainer();
+        robotContainer = new RobotContainer();
     }
     
     /**
@@ -92,7 +102,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         CommandScheduler.getInstance().cancelAll();
-        robotContainer.configureTeleOpBindings();
+        robotContainer.configureTeleOpBindings(drive);
         // robotContainer.configureTeleOpDriverOnlyBindings();
     }
 
