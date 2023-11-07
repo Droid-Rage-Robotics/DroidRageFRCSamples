@@ -46,17 +46,17 @@ public class ShooterSparkMax extends SubsystemBase {
     private final PIDController intakeController;
     private final RelativeEncoder intakeEncoder;
     
-    private final ShuffleboardValue<Boolean> isEnabled = ShuffleboardValue.create(true, "Is Enabled", ShooterTalonFX.class.getSimpleName())
+    private final ShuffleboardValue<Boolean> isEnabled;
+
+    public ShooterSparkMax(Boolean isEnabled) {
+        this.isEnabled = ShuffleboardValue.create(isEnabled, "Is Enabled", ShooterTalonFX.class.getSimpleName())
             .withWidget(BuiltInWidgets.kToggleSwitch)
             .build();
 
-    public ShooterSparkMax(Boolean isEnabled) {
         intakeMotor = new SafeCanSparkMax(
             19,
             MotorType.kBrushless,
-            ShuffleboardValue.create(isEnabled, "Is Enabled", ShooterTalonFX.class.getSimpleName())
-                    .withWidget(BuiltInWidgets.kToggleSwitch)
-                    .build(),
+            this.isEnabled,
                 ShuffleboardValue.create(0.0, "Voltage", ShooterTalonFX.class.getSimpleName())
                     .build()
         );
