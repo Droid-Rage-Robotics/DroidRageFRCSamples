@@ -3,6 +3,7 @@ package frc.robot.utility.motor;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.CANSparkMax.FaultID;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -65,5 +66,14 @@ public class SafeCanSparkMax extends SafeMotor {
 
     public void burnFlash() {
         motor.burnFlash();
+    }
+    public boolean getFault(){
+        return motor.getFault(FaultID.kCANRX);
+        // return motor.getFault(FaultID.kCANTX);
+    }
+
+    public boolean getStickyFault(){
+        return motor.getStickyFault(FaultID.kCANRX);
+        // return motor.getFault(FaultID.kCANTX);
     }
 }

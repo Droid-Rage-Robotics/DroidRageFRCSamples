@@ -22,7 +22,7 @@ import frc.robot.subsystems.drive.SwerveDrive;
  * directory.
  */
 public class Robot extends TimedRobot {
-    private final SwerveDrive drive = new SwerveDrive(true);
+    // private final SwerveDrive drive = new SwerveDrive(true);
     // private final VerticalElevator verticalElevator = new VerticalElevator(true, true);
     // private final VerticalElevatorSetPower verticalElevatorSetPower = new VerticalElevatorSetPower();
     // private final HorizontalElevator horizontalElevator = new HorizontalElevator(true);
@@ -102,7 +102,9 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         CommandScheduler.getInstance().cancelAll();
-        robotContainer.configureTeleOpBindings(drive);
+        robotContainer.configureTeleOpBindings(
+            // drive
+            );
         // robotContainer.configureTeleOpDriverOnlyBindings();
     }
 

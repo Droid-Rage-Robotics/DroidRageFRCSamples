@@ -1,6 +1,10 @@
 package frc.robot;
 
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.FaultID;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,35 +24,50 @@ public class RobotContainer {
         new CommandXboxController(DroidRageConstants.Gamepad.DRIVER_CONTROLLER_PORT);
     private final CommandXboxController operator =
         new CommandXboxController(DroidRageConstants.Gamepad.OPERATOR_CONTROLLER_PORT);
+    private final CANSparkMax testMotor = new CANSparkMax(1, MotorType.kBrushless);
 
     private ShuffleboardValue<Double> matchTime = ShuffleboardValue.create(0.0, "Match Time", "Misc")
         .withWidget(BuiltInWidgets.kTextView)
         .build();
     SendableChooser<CommandBase> autoChooser = new SendableChooser<CommandBase>();
-
+ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
+            false, "motorFaultTX", "Misc")
+            .withSize(1, 3)
+            .withWidget(BuiltInWidgets.kBooleanBox)
+            .build();
+            ShuffleboardValue<Boolean> motorFaultRX = ShuffleboardValue.create(
+                false, "motorFaultRX", "Misc")
+                .withSize(1, 3)
+                .withWidget(BuiltInWidgets.kBooleanBox)
+                .build();
 
     public RobotContainer() {
         ComplexWidgetBuilder.create(autoChooser, "Auto Chooser", "Misc")
             .withSize(1, 3);
+        
 
         // ComplexWidgetBuilder.create(CameraServer.startAutomaticCapture(), "USB Camera Stream", "Misc")   //Usb Streaming
         //     .withSize(5, 5);
         
     }
 
-    public void configureTeleOpBindings(SwerveDrive drive) {
+    public void configureTeleOpBindings(
+        // SwerveDrive drive
+        ) {
+            motorFaultRX.set(testMotor.getFault(FaultID.kCANRX));
+            motorFaultTX.set(testMotor.getFault(FaultID.kCANTX));
         DriverStation.silenceJoystickConnectionWarning(true);
         // light.setDefaultCommand(new LightCommand(intake, light, driver));
         
-        drive.setDefaultCommand(
-            new SwerveDriveTeleop(
-                drive, 
-                driver::getLeftX, 
-                driver::getLeftY, 
-                driver::getRightX,
-                driver.x()
-                )
-            );
+        // drive.setDefaultCommand(
+        //     new SwerveDriveTeleop(
+        //         drive, 
+        //         driver::getLeftX, 
+        //         driver::getLeftY, 
+        //         driver::getRightX,
+        //         driver.x()
+        //         )
+        //     );
         // driver.leftTrigger().and(driver.leftBumper())
         //     .onTrue(new DropTeleopCone(arm, intake)) 
         //     .onFalse(intake.run(intake::stop))
