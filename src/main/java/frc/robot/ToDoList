@@ -28,10 +28,11 @@ ToDo:
             return absoluteEncoder.isConnected();
         }
     Add Timeout for Button Triggers?
+    
 
 Test:
 - Test CycleTracker: https://github.com/3015RangerRobotics/2023Public/blob/main/RobotCode2023/src/main/java/frc/lib/util/CycleTracker.java#L6
-- Make all of the writes that are not necessary during a match be in a practice only writers (Helps prevent the likelyhood of loop overruns)
+- Make all of the writes that are not necessary during a match be in a practice only writers (Helps prevent the likelyhood of loop overruns); Some way to Stop some Values from being updated on the driver station
 - 
 
 Done:
