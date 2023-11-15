@@ -7,18 +7,23 @@ import com.revrobotics.CANSparkMax.FaultID;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
 public class SafeCanSparkMax extends SafeMotor {
     private final CANSparkMax motor;
+    private final ShuffleboardValue<Boolean> motorFault;
     public SafeCanSparkMax(int deviceId, MotorType type, ShuffleboardValue<Boolean> isEnabled, ShuffleboardValue<Double> outputWriter) {
         super(isEnabled, outputWriter);
         motor = new CANSparkMax(deviceId, type);
+        motorFault =  ShuffleboardValue.create(false, "CANSparkMax#"+deviceId, "Motor Faults")
+            .withWidget(BuiltInWidgets.kToggleSwitch)
+            .build();
     }
 
     @Override
     public void setPower(double power) {
-        if(!DriverStation.isFMSAttached()){
+        if(!DriverStation.isFMSAttached()){ //TODO: Test
             outputWriter.write(power);
         }
         if (!isEnabled.get()) motor.set(0);
@@ -43,7 +48,7 @@ public class SafeCanSparkMax extends SafeMotor {
     public void setIdleMode(IdleMode mode) {
         motor.setIdleMode(switch (mode) {
             case Brake -> CANSparkMax.IdleMode.kBrake;
-            case Coast -> CANSparkMax.IdleMode.kBrake;
+            case Coast -> CANSparkMax.IdleMode.kCoast;
         });
     }
     
@@ -67,13 +72,10 @@ public class SafeCanSparkMax extends SafeMotor {
     public void burnFlash() {
         motor.burnFlash();
     }
-    public boolean getFault(){
-        return motor.getFault(FaultID.kCANRX);
+    public void getFault(){
+        motorFault.write(motor.getFault(FaultID.kMotorFault));
         // return motor.getFault(FaultID.kCANTX);
     }
 
-    public boolean getStickyFault(){
-        return motor.getStickyFault(FaultID.kCANRX);
-        // return motor.getFault(FaultID.kCANTX);
-    }
+
 }

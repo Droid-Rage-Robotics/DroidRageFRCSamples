@@ -24,23 +24,16 @@ public class RobotContainer {
         new CommandXboxController(DroidRageConstants.Gamepad.DRIVER_CONTROLLER_PORT);
     private final CommandXboxController operator =
         new CommandXboxController(DroidRageConstants.Gamepad.OPERATOR_CONTROLLER_PORT);
-    private final CANSparkMax testMotor = new CANSparkMax(1, MotorType.kBrushless);
 
     private ShuffleboardValue<Double> matchTime = ShuffleboardValue.create(0.0, "Match Time", "Misc")
         .withWidget(BuiltInWidgets.kTextView)
         .build();
     SendableChooser<CommandBase> autoChooser = new SendableChooser<CommandBase>();
-ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
-            false, "motorFaultTX", "Misc")
-            .withSize(1, 3)
-            .withWidget(BuiltInWidgets.kBooleanBox)
-            .build();
-            ShuffleboardValue<Boolean> motorFaultRX = ShuffleboardValue.create(
-                false, "motorFaultRX", "Misc")
-                .withSize(1, 3)
-                .withWidget(BuiltInWidgets.kBooleanBox)
-                .build();
-
+    ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
+        false, "motorFaultTX", "Misc")
+        .withSize(1, 3)
+        .withWidget(BuiltInWidgets.kBooleanBox)
+        .build();
     public RobotContainer() {
         ComplexWidgetBuilder.create(autoChooser, "Auto Chooser", "Misc")
             .withSize(1, 3);
@@ -54,8 +47,6 @@ ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
     public void configureTeleOpBindings(
         // SwerveDrive drive
         ) {
-            motorFaultRX.set(testMotor.getFault(FaultID.kCANRX));
-            motorFaultTX.set(testMotor.getFault(FaultID.kCANTX));
         DriverStation.silenceJoystickConnectionWarning(true);
         // light.setDefaultCommand(new LightCommand(intake, light, driver));
         
