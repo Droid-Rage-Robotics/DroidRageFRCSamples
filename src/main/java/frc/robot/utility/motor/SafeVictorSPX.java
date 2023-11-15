@@ -57,4 +57,8 @@ public class SafeVictorSPX extends SafeMotor{
     public void setPosition(double position) {
         motor.setSelectedSensorPosition(position);
     }
+    public boolean getMotorFault(){
+        // return motor.getFault(FaultID.kMotorFault);
+        return false;
+    }
 }

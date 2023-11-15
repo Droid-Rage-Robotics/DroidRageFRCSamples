@@ -22,4 +22,5 @@ public abstract class SafeMotor {
     public void stop() {
         setPower(0);
     }
+    public abstract boolean getMotorFault();
 }
