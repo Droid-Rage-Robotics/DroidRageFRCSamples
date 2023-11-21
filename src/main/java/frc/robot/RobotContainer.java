@@ -29,11 +29,17 @@ public class RobotContainer {
         .withWidget(BuiltInWidgets.kTextView)
         .build();
     SendableChooser<CommandBase> autoChooser = new SendableChooser<CommandBase>();
-    ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
-        false, "motorFaultTX", "Misc")
-        .withSize(1, 3)
-        .withWidget(BuiltInWidgets.kBooleanBox)
-        .build();
+ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
+            false, "motorFaultTX", "Misc")
+            .withSize(1, 3)
+            .withWidget(BuiltInWidgets.kBooleanBox)
+            .build();
+            ShuffleboardValue<Boolean> motorFaultRX = ShuffleboardValue.create(
+                false, "motorFaultRX", "Misc")
+                .withSize(1, 3)
+                .withWidget(BuiltInWidgets.kBooleanBox)
+                .build();
+
     public RobotContainer() {
         ComplexWidgetBuilder.create(autoChooser, "Auto Chooser", "Misc")
             .withSize(1, 3);
@@ -45,8 +51,10 @@ public class RobotContainer {
     }
 
     public void configureTeleOpBindings(
-        // SwerveDrive drive
+        SwerveDrive drive
         ) {
+            // motorFaultRX.set(testMotor.getFault(FaultID.kCANRX));
+            // motorFaultTX.set(testMotor.getFault(FaultID.kCANTX));
         DriverStation.silenceJoystickConnectionWarning(true);
         // light.setDefaultCommand(new LightCommand(intake, light, driver));
         
@@ -82,6 +90,7 @@ public class RobotContainer {
     }
 
     public void teleopPeriodic() {
+        // motorFault.set(testMotor.getFault(FaultID.kMotorFault));
         matchTime.set(DriverStation.getMatchTime());
     }
 }

@@ -13,9 +13,15 @@ import frc.robot.utility.shuffleboard.ShuffleboardValue;
 public class SafeCanSparkMax extends SafeMotor {
     private final CANSparkMax motor;
     private final ShuffleboardValue<Boolean> motorFault;
-    public SafeCanSparkMax(int deviceId, MotorType type, ShuffleboardValue<Boolean> isEnabled, ShuffleboardValue<Double> outputWriter) {
+    public SafeCanSparkMax(int deviceId, MotorType type, ShuffleboardValue<Boolean> isEnabled, 
+        ShuffleboardValue<Double> outputWriter) {
         super(isEnabled, outputWriter);
         motor = new CANSparkMax(deviceId, type);
+
+        // motorFault = ShuffleboardValue.create(getMotorFault(), "Motor Fault " + deviceId, 
+        //         "MotorFaults")
+        //         .withWidget(BuiltInWidgets.kBooleanBox)
+        //         .build();
         motorFault =  ShuffleboardValue.create(false, "CANSparkMax#"+deviceId, "Motor Faults")
             .withWidget(BuiltInWidgets.kToggleSwitch)
             .build();
@@ -72,10 +78,14 @@ public class SafeCanSparkMax extends SafeMotor {
     public void burnFlash() {
         motor.burnFlash();
     }
-    public void getFault(){
-        motorFault.write(motor.getFault(FaultID.kMotorFault));
+    public boolean getMotorFault(){
+        return motor.getFault(FaultID.kCANRX);
         // return motor.getFault(FaultID.kCANTX);
     }
+    public void periodic(){}
 
-
+    public boolean getStickyFault(){
+        return motor.getStickyFault(FaultID.kCANRX);
+        // return motor.getFault(FaultID.kCANTX);
+    }
 }
