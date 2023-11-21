@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.drive.SwerveDriveTeleop;
+import frc.robot.subsystems.TemporarySubsystem;
 import frc.robot.subsystems.drive.SwerveDrive;
 import frc.robot.utility.InfoTracker.CycleTracker;
 import frc.robot.utility.shuffleboard.ComplexWidgetBuilder;
@@ -24,21 +25,16 @@ public class RobotContainer {
         new CommandXboxController(DroidRageConstants.Gamepad.DRIVER_CONTROLLER_PORT);
     private final CommandXboxController operator =
         new CommandXboxController(DroidRageConstants.Gamepad.OPERATOR_CONTROLLER_PORT);
-
+    private final TemporarySubsystem temporarySubsystem =new TemporarySubsystem(true);
     private ShuffleboardValue<Double> matchTime = ShuffleboardValue.create(0.0, "Match Time", "Misc")
         .withWidget(BuiltInWidgets.kTextView)
         .build();
     SendableChooser<CommandBase> autoChooser = new SendableChooser<CommandBase>();
-ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
-            false, "motorFaultTX", "Misc")
-            .withSize(1, 3)
-            .withWidget(BuiltInWidgets.kBooleanBox)
-            .build();
-            ShuffleboardValue<Boolean> motorFaultRX = ShuffleboardValue.create(
-                false, "motorFaultRX", "Misc")
-                .withSize(1, 3)
-                .withWidget(BuiltInWidgets.kBooleanBox)
-                .build();
+    ShuffleboardValue<Boolean> motorTestRC = ShuffleboardValue.create(
+        false, "motorTestRC", "Misc")
+        .withSize(1, 3)
+        .withWidget(BuiltInWidgets.kBooleanBox)
+        .build();
 
     public RobotContainer() {
         ComplexWidgetBuilder.create(autoChooser, "Auto Chooser", "Misc")
@@ -51,7 +47,7 @@ ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
     }
 
     public void configureTeleOpBindings(
-        SwerveDrive drive
+        // SwerveDrive drive
         ) {
             // motorFaultRX.set(testMotor.getFault(FaultID.kCANRX));
             // motorFaultTX.set(testMotor.getFault(FaultID.kCANTX));
@@ -90,7 +86,8 @@ ShuffleboardValue<Boolean> motorFaultTX = ShuffleboardValue.create(
     }
 
     public void teleopPeriodic() {
-        // motorFault.set(testMotor.getFault(FaultID.kMotorFault));
+        temporarySubsystem.loop();
+        motorTestRC.set(temporarySubsystem.getTemp());
         matchTime.set(DriverStation.getMatchTime());
     }
 }

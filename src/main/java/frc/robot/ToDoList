@@ -28,6 +28,7 @@ ToDo:
             return absoluteEncoder.isConnected();
         }
     Add Timeout for Button Triggers?
+    Change Drivetrain Motors to SafeCANSparkMax
     
 
 Test:
