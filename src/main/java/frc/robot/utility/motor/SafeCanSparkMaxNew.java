@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.utility.shuffleboard.ShuffleboardValue;
 
-public class SafeCanSparkMax extends SafeMotor {
+public class SafeCanSparkMaxNew extends SafeMotor {
     private final CANSparkMax motor;
     private final ShuffleboardValue<Boolean> motorFault;
-    public SafeCanSparkMax(int deviceId, MotorType type, ShuffleboardValue<Boolean> isEnabled, 
-        ShuffleboardValue<Double> outputWriter) {
+    public SafeCanSparkMaxNew(int deviceId, MotorType type, ShuffleboardValue<Boolean> isEnabled, 
+        ShuffleboardValue<Double> outputWriter, ShuffleboardValue<Boolean> motorFault) {
         super(isEnabled, outputWriter);
         motor = new CANSparkMax(deviceId, type);
 
@@ -22,9 +22,7 @@ public class SafeCanSparkMax extends SafeMotor {
         //         "MotorFaults")
         //         .withWidget(BuiltInWidgets.kBooleanBox)
         //         .build();
-          motorFault =  ShuffleboardValue.create(false, "CANSparkMax #"+deviceId, "MotorFaults")
-            .withWidget(BuiltInWidgets.kBooleanBox)
-            .build();
+        this.motorFault =  motorFault;
     }
 
     @Override
@@ -71,9 +69,9 @@ public class SafeCanSparkMax extends SafeMotor {
         return motor.getAbsoluteEncoder(encoderType);
     }
     
-    public void follow(SafeCanSparkMax leader, boolean invert) {
-        motor.follow(leader.getSparkMax(), invert);
-    }
+    // public void follow(SafeCanSparkMax leader, boolean invert) {
+    //     motor.follow(leader.getSparkMax(), invert);
+    // }
 
     public void burnFlash() {
         motor.burnFlash();
